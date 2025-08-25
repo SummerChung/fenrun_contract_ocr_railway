@@ -7,7 +7,7 @@ from pdf2image import convert_from_bytes
 from PIL import Image, ImageOps
 
 st.set_page_config(page_title="分潤增補協議書 OCR 工具", layout="centered")
-st.title("分潤增補協議書 OCR 自動辨識工具（修正版）")
+st.title("分潤增補協議書 OCR 自動辨識工具（最終穩定版）")
 st.markdown("📄 上傳掃描 PDF（最多 10 份），系統將進行圖像預處理並辨識欄位資訊，產出 Excel 報表。")
 
 uploaded_files = st.file_uploader("⬆️ 上傳 PDF", type="pdf", accept_multiple_files=True)
@@ -57,10 +57,10 @@ if uploaded_files:
                     full_text += ocr_text + "\n"
 
                 email_match = re.search(r'([\w\.-]+@[\w\.-]+)', full_text)
-                price_match = re.search(r"[單价價][：:NT\$ ]*([0-9,]{2,5})", full_text)
-                total_match = re.search(r"[合总總]計[：:NT\$ ]*([0-9,]{2,6})", full_text)
-                count_match = re.search(r"[數数量台]+[:： ]*([一二三四五六七八九十壹貳參肆伍陸柒捌玖拾佰仟]+)", full_text)
-                commission_match = re.search(r"[分酬][潤利][金費額]?[：:新台幣 ]*([一二三四五六七八九十壹貳參肆伍陸柒捌玖拾佰仟]+)", full_text)
+                price_match = re.search(r"[單价價][：:NT\$ ]*([0-9,]{2,6})", full_text)
+                total_match = re.search(r"[合总總]計[：:NT\$ ]*([0-9,]{2,8})", full_text)
+                count_match = re.search(r"[數数量台]+[:： ]*([一二三四五六七八九十百千壹貳參肆伍陸柒捌玖拾佰仟]+)", full_text)
+                commission_match = re.search(r"[分酬][潤利][金費額]?[：:新台幣 ]*([一二三四五六七八九十百千壹貳參肆伍陸柒捌玖拾佰仟]+)", full_text)
 
                 results.append({
                     "檔名": file.name,
